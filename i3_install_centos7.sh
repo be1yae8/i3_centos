@@ -18,8 +18,7 @@ export LD_LIBRARY_PATH=/usr/local/lib/
 #Restart the machine so kernel and env vars take place.
 
 #! /bin/bash
-mkdir ~/Source
-cd ~/src/
+mkdir ~/src; cd !$
 mkdir -p anongit.freedesktop.org/git/xorg/util/; cd !$
 git clone https://anongit.freedesktop.org/git/xorg/util/macros.git
 cd ../..; mkdir xcb; cd !$
@@ -36,7 +35,7 @@ mkdir -p ~/src/github.com/i3; cd !$
 git clone https://github.com/i3/i3.git
 
 # Macros
-cd macros
+cd ~/src/anongit.freedesktop.org/xorg/util/macros/
 git tag -l 
 git checkout tags/util-macros-1.19.0
 ./autogen.sh
@@ -44,7 +43,7 @@ make
 sudo make install
 
 #util-render
-cd ../util-renderutil/
+cd ../../../xcb/util-renderutil/
 git submodule update --init
 git tag -l 
 git checkout tags/0.3.9
@@ -81,21 +80,21 @@ sudo make install
 #libxcb
 cd ../libxcb/
 git tag -l 
-git checkout tags/1.11
+git checkout tags/1.11.1
 ./autogen.sh
 make 
 sudo make install
 
 #xkbcommon
-cd ../libxkbcommon/
+cd ~/src/github.com/xkbcommon/libxkbcommon/
 git tag -l 
-git checkout tags/xkbcommon-0.5.0
+git checkout tags/xkbcommon-0.6.1
 ./autogen.sh
 make 
 sudo make install
 
 #confuse 
-cd ../confuse/
+cd ~/src/git.savannah.gnu.org/r/confuse/
 git tag -l 
 git checkout tags/V2_7
 ./autogen.sh
@@ -103,23 +102,18 @@ make
 sudo make install
 
 #i3
-cd ../i3/
+cd ~/src/github.com/i3/i3/
 git tag -l 
-git checkout tags/4.10.2
+git checkout tags/4.10.4
 make 
 sudo make install
 
 #i3status
 cd ~/Source/
 sudo yum install pulseaudio-libs-devel alsa-lib-devel asciidoc 
+sudo yum install libnl3 libnl3-devel libnl libnl-devel wireless-tools-devel
 git clone https://github.com/i3/i3status.git
-curl -GL -O http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/wireless_tools.29.tar.gz
-tar xvf wireless_tools.29.tar.gz
-cd wireless_tools.29
-make
-sudo make install
-
-cd ../i3status/
+cd i3status/
 make
 sudo make install
 #echo "exec i3" > ~/.xinitrc
