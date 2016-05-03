@@ -109,12 +109,19 @@ make
 sudo make install
 
 #i3status
-cd ~/Source/
+cd ..
 sudo yum install pulseaudio-libs-devel alsa-lib-devel asciidoc 
 sudo yum install libnl3 libnl3-devel libnl libnl-devel wireless-tools-devel
 git clone https://github.com/i3/i3status.git
 cd i3status/
 make
 sudo make install
-#echo "exec i3" > ~/.xinitrc
-echo "exec ssh-agent i3" > ~/.xinitrc
+
+#i3lock
+cd ..
+sudo yum install -y pam-devel
+git clone https://github.com/i3/i3lock.git
+cd i3lock
+make
+sudo make install
+sudo ln -s /usr/share/X11/xkb /usr/local/share/X11/xkb
